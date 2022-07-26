@@ -11,8 +11,8 @@ import Foundation
 class RequestDummy: RequestProtocol {
     var endpoint: String = ""
     var method: HTTPMethod = .get
-    var header: [AnyHashable : Any] = [:]
+    var header: [String : String] = [:]
     var body: Data? = nil
-    var path: [AnyHashable : Any] = [:]
-    var query: [AnyHashable : Any] = [:]
+    var path: [(param: String, value: String)] = []
+    var query: [(param: String, value: String)] = []
 }

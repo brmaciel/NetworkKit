@@ -33,8 +33,8 @@ class BuildResourcePath_DefaultBackendProviderTests: XCTestCase {
     func test_buildResourcePath_allNilParameters() {
         // Given
         let endpoint: String? = nil
-        let pathParams: [AnyHashable : Any]? = nil
-        let queryParams: [AnyHashable : Any]? = nil
+        let pathParams: [(String, String)]? = nil
+        let queryParams: [(String, String)]? = nil
         
         // When
         let resourcePath = sut.buildResourcePath(endpoint: endpoint,
@@ -50,8 +50,8 @@ class BuildResourcePath_DefaultBackendProviderTests: XCTestCase {
     func test_buildResourcePath_allEmptyParameters() {
         // Given
         let endpoint: String? = ""
-        let pathParams: [AnyHashable : Any]? = [:]
-        let queryParams: [AnyHashable : Any]? = [:]
+        let pathParams: [(String, String)]? = []
+        let queryParams: [(String, String)]? = []
         
         // When
         let resourcePath = sut.buildResourcePath(endpoint: endpoint,
@@ -82,7 +82,7 @@ class BuildResourcePath_DefaultBackendProviderTests: XCTestCase {
     func test_buildResourcePath_withOnlyEndpointAndPathParams() {
         // Given
         let endpoint: String? = "/endpoint"
-        let pathParams: [AnyHashable : Any]? = ["pathParam1":"pathValue1"]
+        let pathParams: [(String, String)]? = [("pathParam1", "pathValue1")]
         
         // When
         let resourcePath = sut.buildResourcePath(endpoint: endpoint,
@@ -98,7 +98,7 @@ class BuildResourcePath_DefaultBackendProviderTests: XCTestCase {
     func test_buildResourcePath_withOnlyEndpointAndQueryParams() {
         // Given
         let endpoint: String? = "/endpoint"
-        let queryParams: [AnyHashable : Any]? = ["queryParam1":"queryValue1"]
+        let queryParams: [(String, String)]? = [("queryParam1", "queryValue1")]
         
         // When
         let resourcePath = sut.buildResourcePath(endpoint: endpoint,
@@ -113,8 +113,8 @@ class BuildResourcePath_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildResourcePath_withOnlyPathParamsAndQueryParam() {
         // Given
-        let pathParams: [AnyHashable : Any]? = ["pathParam1":"pathValue1"]
-        let queryParams: [AnyHashable : Any]? = ["queryParam1":"queryValue1"]
+        let pathParams: [(String, String)]? = [("pathParam1", "pathValue1")]
+        let queryParams: [(String, String)]? = [("queryParam1", "queryValue1")]
         
         // When
         let resourcePath = sut.buildResourcePath(endpoint: nil,
@@ -132,8 +132,8 @@ class BuildResourcePath_DefaultBackendProviderTests: XCTestCase {
     func test_buildResourcePath_withEndpointAndPathParamsAndQueryParam() {
         // Given
         let endpoint: String? = "/endpoint"
-        let pathParams: [AnyHashable : Any]? = ["pathParam1":"pathValue1"]
-        let queryParams: [AnyHashable : Any]? = ["queryParam1":"queryValue1"]
+        let pathParams: [(String, String)]? = [("pathParam1", "pathValue1")]
+        let queryParams: [(String, String)]? = [("queryParam1", "queryValue1")]
         
         // When
         let resourcePath = sut.buildResourcePath(endpoint: endpoint,

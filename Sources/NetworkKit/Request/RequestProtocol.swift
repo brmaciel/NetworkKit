@@ -10,8 +10,8 @@ import Foundation
 public protocol RequestProtocol {
     var endpoint: String { get }
     var method: HTTPMethod { get }
-    var header: [AnyHashable : Any] { get }
+    var header: [String: String] { get }
     var body: Data? { get }
-    var path: [AnyHashable : Any] { get }
-    var query: [AnyHashable : Any] { get }
+    var path: [(param: String, value: String)] { get }
+    var query: [(param: String, value: String)] { get }
 }

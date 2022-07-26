@@ -33,7 +33,7 @@ class BuildPathString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildPathString_nil() {
         // Given
-        let pathParams: [AnyHashable : Any]? = nil
+        let pathParams: [(String, String)]? = nil
         
         // When
         let pathString = sut.buildPathString(from: pathParams)
@@ -45,7 +45,7 @@ class BuildPathString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildPathString_empty() {
         // Given
-        let pathParams: [AnyHashable : Any]? = [:]
+        let pathParams: [(String, String)]? = []
         
         // When
         let pathString = sut.buildPathString(from: pathParams)
@@ -57,8 +57,8 @@ class BuildPathString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildPathString_withOneValue() {
         // Given
-        let pathParams: [AnyHashable : Any]? = [
-            "param1" : "value1"
+        let pathParams: [(String, String)]? = [
+            ("param1", "value1")
         ]
         
         // When
@@ -72,17 +72,17 @@ class BuildPathString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildPathString_withMoreThanOneValue() {
         // Given
-        let pathParams: [AnyHashable : Any]? = [
-            "param1" : "value1",
-            "param2" : "value2"
+        let pathParams: [(String, String)]? = [
+            ("param1", "value1"),
+            ("param2", "value2")
         ]
         
         // When
         let pathString = sut.buildPathString(from: pathParams)
         
         // Then
-        XCTAssert(pathString == "/param1/value1/param2/value2" || pathString == "/param2/value2/param1/value1",
-                  "buildPathString(from:) should return string in format '/paramI/valueI/paramJ/valueJ'")
+        XCTAssert(pathString == "/param1/value1/param2/value2",
+                  "buildPathString(from:) should return string in format '/param1/value1/param2/value2'")
     }
     
 }

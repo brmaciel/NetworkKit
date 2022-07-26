@@ -48,8 +48,8 @@ open class DefaultBackendProvider: BackendProvider {
         let method = (parameters["method"] as? HTTPMethod) ?? .get
         
         let resourcePath = buildResourcePath(endpoint: parameters["endpoint"] as? String,
-                                             pathParameters: parameters["path"] as? [AnyHashable : Any],
-                                             queryParameters: parameters["query"] as? [AnyHashable : Any])
+                                             pathParameters: parameters["path"] as? [(String, String)],
+                                             queryParameters: parameters["query"] as? [(String, String)])
         let url = buildRequestUrl(resourcePath: resourcePath)
         
         apiRequester?.request(url: url,
@@ -65,43 +65,43 @@ open class DefaultBackendProvider: BackendProvider {
     /**
      Builds path string from path parameters.
      
-      - Returns: String in format `/paramI/valueI/paramJ/valueJ`
+      - Returns: String in format `/param1/value1/param2/value2`
      */
-    public func buildPathString(from pathParameters: [AnyHashable: Any]?) -> String? {
+    public func buildPathString(from pathParameters: [(param: String, value: String)]?) -> String? {
         guard
             let pathParams = pathParameters,
             !pathParams.isEmpty
             else { return nil }
         
         return String(pathParams
-                        .reduce("/") { $0 + "\($1.key)/\($1.value)/" }
+                        .reduce("/") { $0 + "\($1.param)/\($1.value)/" }
                         .dropLast())
     }
     
     /**
      Builds query string from query parameters.
      
-      - Returns: String in format `?paramI=valueI&paramJ=valueJ`
+      - Returns: String in format `?param1=value1&param2=value2`
      */
-    public func buildQueryString(from queryParameters: [AnyHashable: Any]?) -> String? {
+    public func buildQueryString(from queryParameters: [(param: String, value: String)]?) -> String? {
         guard
             let queryParams = queryParameters,
             !queryParams.isEmpty
             else { return nil }
         
         return String(queryParams
-                        .reduce("?") { $0 + "\($1.key)=\($1.value)&" }
+                        .reduce("?") { $0 + "\($1.param)=\($1.value)&" }
                         .dropLast())
     }
     
     /**
      Builds the resource path from the endpoint, path parameters and query parameters.
      
-      - Returns: String in format `/endpoint/pathParamI/pathValueI/pathParamJ/pathValueJ?queryParamK=queryValueK&queryParamL=queryValueL`
+      - Returns: String in format `/endpoint/pathParam1/pathValue1/pathParam2/pathValue2?queryParam1=queryValue1&queryParam2=queryValue2`
      */
     public func buildResourcePath(endpoint: String?,
-                                  pathParameters: [AnyHashable: Any]?,
-                                  queryParameters: [AnyHashable: Any]?) -> String {
+                                  pathParameters: [(String, String)]?,
+                                  queryParameters: [(String, String)]?) -> String {
         var resourcePath = endpoint ?? ""
         
         if let pathParameters = buildPathString(from: pathParameters) {

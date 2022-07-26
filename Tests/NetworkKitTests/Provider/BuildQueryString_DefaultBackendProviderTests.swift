@@ -32,7 +32,7 @@ class BuildQueryString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildQueryString_nil() {
         // Given
-        let queryParams: [AnyHashable : Any]? = nil
+        let queryParams: [(String, String)]? = nil
         
         // When
         let queryString = sut.buildQueryString(from: queryParams)
@@ -44,7 +44,7 @@ class BuildQueryString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildQueryString_empty() {
         // Given
-        let queryParams: [AnyHashable : Any]? = [:]
+        let queryParams: [(String, String)]? = []
         
         // When
         let queryString = sut.buildQueryString(from: queryParams)
@@ -56,8 +56,8 @@ class BuildQueryString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildQueryString_withOneValue() {
         // Given
-        let queryParams: [AnyHashable : Any]? = [
-            "param1" : "value1"
+        let queryParams: [(String, String)]? = [
+            ("param1", "value1")
         ]
         
         // When
@@ -71,17 +71,17 @@ class BuildQueryString_DefaultBackendProviderTests: XCTestCase {
     
     func test_buildQueryString_withMoreThanOneValue() {
         // Given
-        let queryParams: [AnyHashable : Any]? = [
-            "param1" : "value1",
-            "param2" : "value2"
+        let queryParams: [(String, String)]? = [
+            ("param1", "value1"),
+            ("param2", "value2")
         ]
         
         // When
         let queryString = sut.buildQueryString(from: queryParams)
         
         // Then
-        XCTAssert(queryString == "?param1=value1&param2=value2" || queryString == "?param2=value2&param1=value1",
-                  "buildQueryString(from:) should return string in format '?paramI=valueI&paramJ=valueJ'")
+        XCTAssert(queryString == "?param1=value1&param2=value2",
+                  "buildQueryString(from:) should return string in format '?param1=value1&param2=value2'")
     }
     
 }
