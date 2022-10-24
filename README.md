@@ -16,11 +16,6 @@ NetworkKit is an HTTP networking library.
  - **NetworkResponseResult:** enumeration with possible network request results (success, failure).
  - **NetworkResponseError:** enumeration with possible network request errors. It is used to compose the network response result when it is a failure.
 
-### ResponseMapper
-
- - **ResponseMapper:** protocol that defines a response mapper. Response mappers are responsible for mapping a response instance (which is decoded from `Data`)  into some model.
- - **MainResponseMapper:** a concrete class that implements the protocol. It **must be inherited** and its method `.map(_:)` should always be overriden.
-
 ### Service
 
  - **ServiceProtocol:** protocol that defines methods that should be implemented by a worker.
@@ -31,7 +26,9 @@ NetworkKit is an HTTP networking library.
 class ExampleWorker: MainWorker {
     func fetchExample() {
         makeRequest(request: ExampleRequest(),
-                    mapResponseAction: ExampleMapper().map,
+                    mapResponseAction: { response in
+                        // use to convert the response into some model
+                    },
                     success: { model in
                         print(model)
                     }, failure: { response in

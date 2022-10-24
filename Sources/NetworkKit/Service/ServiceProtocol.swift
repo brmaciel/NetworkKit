@@ -14,20 +14,20 @@ protocol ServiceProtocol {
      
      - Parameters:
         - request: object that carries all information needed to be sent to service
-        - mapResponseAction: method responsible for converting the `responseObj` into the model. It's recommended to use the `.map(_:)` method of a `ResponseMapper`
+        - mapResponseAction: method responsible for converting the `responseObj` into the model
         - responseObj:object decoded from response data
         - success: success handler closure that return the model
         - model: instance of model that was created from the response in the `mapReseponAction`
         - failure: failure handler closure that indicates that creating the model has failed
         - response: instance of type NetworkResponse to be used in case is necessary to find out the reason of failure
      
-     ~~~
+     ```
      // Example
      makeRequest(request: ExampleRequest(),
-                 mapResponseAction: ExampleMapper().map,
+                 mapResponseAction: { responseObj in },
                  success: { model in },
                  failure: { response in })
-     ~~~
+     ```
      */
     func makeRequest<Response: Decodable, Model>(request: RequestProtocol,
                                                  mapResponseAction: @escaping (_ responseObj: Response) -> Model?,
@@ -40,7 +40,7 @@ protocol ServiceProtocol {
      
      - Parameters:
         - request: object that carries all information needed to be sent to service
-        - mapResponseAction: method responsible for converting the `responseObj` into the model. It's recommended to use the `.map(_:)` method of a `ResponseMapper`
+        - mapResponseAction: method responsible for converting the `responseObj` into the model
         - responseObj:object decoded from response data
         - success: success handler closure that is executed when an instance of model can be created from response
         - model: instance of model that was created from the response by the mapper
@@ -48,13 +48,13 @@ protocol ServiceProtocol {
         - failure: failure handler closure that indicates that creating the model has failed
         - failResponse: instance of type NetworkResponse to be used in case is necessary to find out the reason of failure
      
-     ~~~
+     ```
      // Example
      makeRequest(request: ExampleRequest(),
-                 mapResponseAction: ExampleMapper().map,
+                mapResponseAction: { responseObj in },
                  success: { (model, response) in },
                  failure: { response in })
-     ~~~
+     ```
      */
     func makeRequest<Response: Decodable, Model>(request: RequestProtocol,
                                                  mapResponseAction: @escaping (_ responseObj: Response) -> Model?,
